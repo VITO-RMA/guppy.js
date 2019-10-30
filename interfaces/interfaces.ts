@@ -1,14 +1,14 @@
 export interface Raster {
-  uuid: string;
-  name: string;
+  uuid: string; // example: atmosys-ifdm_2015ref_industrie_kgn-v1
+  name: string; // example: ifdm_2015ref_industrie_kgn
   description: string;
-  metadataUrl: string;
+  metadataUrl: string; // Who supplied the raster?
   createdOn: Date;
   createdBy: string;
   updatedOn: Date;
   updatedBy: string;
-  boundingBoxNative: string;
-  boundingBox4326: string;
+  boundingBoxNative: string; // WKT string of the bounding box excluding NODATA values
+  boundingBox4326: string; // ESPG:4326 version of the WKT string of the bounding box excluding NODATA values
 }
 
 export interface RasterStats {
@@ -21,8 +21,8 @@ export interface RasterStats {
 }
 
 export interface RasterBody {
-  srs: string;
-  geometry: string;
+  srs: string; // example: EPSG:4326
+  geometry: string; // example: Polygon ((4.508 51.301,4.508 51.401, 4.608 51.401, 4.608 51.301,4.508 51.301))
   resolution: "native" | "auto";
 }
 

@@ -1,0 +1,1 @@
+// POST /rasters/{rasterId}/quantiles
