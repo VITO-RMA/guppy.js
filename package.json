@@ -1,0 +1,25 @@
+{
+  "name": "guppy",
+  "version": "1.0.0",
+  "description": "geo services built and maintained by RMA",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npm:test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VITO-RMA/guppy.js.git"
+  },
+  "keywords": [
+    "guppy",
+    "rma",
+    "geo",
+    "geoservice"
+  ],
+  "author": "Jens De Craecker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VITO-RMA/guppy.js/issues"
+  },
+  "homepage": "https://github.com/VITO-RMA/guppy.js#readme"
+}
