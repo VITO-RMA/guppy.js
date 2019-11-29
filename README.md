@@ -4,7 +4,9 @@
 
 In the project directory, you can run:
 
-### `npm start`
+### `yarn build`
+
+### `yarn generate-docs`
 
 ## Learn More
 
