@@ -1,0 +1,5 @@
+{
+  "mode": "module",
+  "out": "docs",
+  "target": "es6"
+}
