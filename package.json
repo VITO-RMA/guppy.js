@@ -2,9 +2,11 @@
   "name": "guppy",
   "version": "1.0.0",
   "description": "geo services built and maintained by RMA",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "prepublish": "npm run build",
+    "build": "tsc",
     "generate-docs": "typedoc --mode file --out docs src --ignoreCompilerErrors --theme minimal"
   },
   "repository": {
