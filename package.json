@@ -1,12 +1,11 @@
 {
   "name": "guppy.ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "geo services built and maintained by RMA",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "prepare": "yarn run build",
-    "postinstall": "yarn run build",
     "build": "tsc",
     "generate-docs": "typedoc --mode file --out docs src --ignoreCompilerErrors --theme minimal"
   },
