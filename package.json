@@ -1,5 +1,5 @@
 {
-  "name": "guppy",
+  "name": "guppy.js",
   "version": "1.0.0",
   "description": "geo services built and maintained by RMA",
   "main": "dist/index.js",
