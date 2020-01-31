@@ -54,10 +54,22 @@ export interface RasterQuantiles {
   value: number;
 }
 
+/**
+ * Returns a guppy instance with your config enclosed
+ * @param config
+ * @param config.url - Absolute url to Guppy api. E.g. https://guppy.server.be/api
+ * @returns Guppy instance with guppy operations available
+ */
 export function createInstance(config: Config) {
   /**
    * **************************************************************************
    * Aggregation
+   */
+
+  /**
+   * Get array of classes with their counts or percentages fo the geometry.
+   * @param uuid - Id of raster
+   * @param body
    */
   async function getRasterClassification(
     uuid: string,
@@ -68,6 +80,11 @@ export function createInstance(config: Config) {
     return result.data.data;
   }
 
+  /**
+   * Get raw raster data values inside wkt geometry
+   * @param uuid - Id of raster
+   * @param body
+   */
   async function getRasterData(
     uuid: string,
     body: RasterBody
@@ -77,6 +94,11 @@ export function createInstance(config: Config) {
     return result.data.data;
   }
 
+  /**
+   * Get defined number of raw raster data values for a line wkt geometry
+   * @param uuid - Id of raster
+   * @param body
+   */
   async function getRasterLinedata(
     uuid: string,
     body: RasterLinedataBody
@@ -86,6 +108,11 @@ export function createInstance(config: Config) {
     return result.data.data;
   }
 
+  /**
+   * Get raster stats for WKT geometry
+   * @param uuid - Id of raster
+   * @param body
+   */
   async function getRasterStats(
     uuid: string,
     body: RasterBody
@@ -95,6 +122,11 @@ export function createInstance(config: Config) {
     return result.data.data;
   }
 
+  /**
+   * Get raster quantiles for WKT geometry
+   * @param uuid - Id of raster
+   * @param body
+   */
   async function getRasterQuantiles(
     uuid: string,
     body: RasterQuantilesBody
@@ -103,22 +135,34 @@ export function createInstance(config: Config) {
     const result = await axios.post(url, body);
     return result.data.data;
   }
+
   /**
    * **************************************************************************
    * Categories
+   */
+
+  /**
+   * Get categories known by Guppy api
    */
   async function getCategories(): Promise<Raster[]> {
     const result = await axios.get(`${config.url}/categories`);
     return result.data.data;
   }
 
-  // GET /categories/{categoryId}
+  /**
+   * Get category details
+   * @param categoryId
+   */
   async function getCategory(categoryId: string): Promise<Raster> {
     const result = await axios.get(`${config.url}/categories/${categoryId}`);
     return result.data.data;
   }
 
-  // GET /categories/{categoryId}/rasters
+  /**
+   * Get rasters by category
+   * @param categoryId
+   * @param options
+   */
   async function getRastersByCategory(
     categoryId: string,
     options = { limit: 9999 }
@@ -134,11 +178,19 @@ export function createInstance(config: Config) {
    * **************************************************************************
    * Rasters
    */
+
+  /**
+   * Get rasters known by Guppy api
+   */
   async function getRasters(): Promise<Raster[]> {
     const result = await axios.get(`${config.url}/rasters`);
     return result.data.data;
   }
-  // GET /rasters/{rasterId}
+
+  /**
+   * Get raster details
+   * @param uuid
+   */
   async function getRaster(uuid: string): Promise<Raster> {
     const result = await axios.get(`${config.url}/rasters/${uuid}`);
     return result.data.data;
