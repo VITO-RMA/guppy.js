@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepare": "yarn run build",
+    "postinstall": "yarn run build",
     "build": "tsc",
     "generate-docs": "typedoc --mode file --out docs src --ignoreCompilerErrors --theme minimal"
   },
