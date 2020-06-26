@@ -61,5 +61,5 @@ export declare function createInstance(config: Config): {
         limit: number;
     }) => Promise<Raster[]>;
     getRaster: (uuid: string) => Promise<Raster>;
-    getRasterQuantiles: (uuid: string, body: RasterQuantilesBody) => Promise<RasterQuantiles>;
+    getRasterQuantiles: (uuid: string, body: RasterQuantilesBody) => Promise<RasterQuantiles[]>;
 };

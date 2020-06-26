@@ -130,7 +130,7 @@ export function createInstance(config: Config) {
   async function getRasterQuantiles(
     uuid: string,
     body: RasterQuantilesBody
-  ): Promise<RasterQuantiles> {
+  ): Promise<RasterQuantiles[]> {
     const url = `${config.url}/rasters/${uuid}/quantiles`;
     const result = await axios.post(url, body);
     return result.data.data;
