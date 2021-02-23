@@ -32,9 +32,6 @@ export interface RasterDataResult {
         type: string;
     };
 }
-export interface RasterDataError {
-    message: string;
-}
 export interface RasterClassification {
     value: string;
     count: number;
@@ -60,7 +57,7 @@ export interface RasterQuantiles {
  */
 export declare function createInstance(config: Config): {
     getRasterClassification: (uuid: string, body: RasterClassificationBody) => Promise<RasterClassification>;
-    getRasterData: (uuid: string, body: RasterBody) => Promise<number[][]>;
+    getRasterData: (uuid: string, body: RasterBody) => Promise<number[] | number[][]>;
     getRasterLinedata: (uuid: string, body: RasterLinedataBody) => Promise<number[]>;
     getRasterStats: (uuid: string, body: RasterBody) => Promise<RasterStats>;
     getRasters: () => Promise<Raster[]>;
