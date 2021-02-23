@@ -24,7 +24,13 @@ export interface RasterStats {
 export interface RasterBody {
     srs: string;
     geometry: string;
-    resolution: 'native' | 'auto';
+    resolution: "native" | "auto";
+}
+export interface RasterDataResult {
+    data: number[][] | number[];
+    meta: {
+        type: string;
+    };
 }
 export interface RasterClassification {
     value: string;
@@ -51,7 +57,7 @@ export interface RasterQuantiles {
  */
 export declare function createInstance(config: Config): {
     getRasterClassification: (uuid: string, body: RasterClassificationBody) => Promise<RasterClassification>;
-    getRasterData: (uuid: string, body: RasterBody) => Promise<number[][]>;
+    getRasterData: (uuid: string, body: RasterBody) => Promise<number[] | number[][]>;
     getRasterLinedata: (uuid: string, body: RasterLinedataBody) => Promise<number[]>;
     getRasterStats: (uuid: string, body: RasterBody) => Promise<RasterStats>;
     getRasters: () => Promise<Raster[]>;
