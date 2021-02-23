@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export interface Config {
   url: string;
@@ -29,7 +29,12 @@ export interface RasterStats {
 export interface RasterBody {
   srs: string; // example: EPSG:4326
   geometry: string; // example: Polygon ((4.508 51.301,4.508 51.401, 4.608 51.401, 4.608 51.301,4.508 51.301))
-  resolution: 'native' | 'auto';
+  resolution: "native" | "auto";
+}
+
+export interface RasterDataResult {
+  data: number[][] | number[];
+  meta: { type: string };
 }
 
 export interface RasterClassification {
@@ -85,13 +90,10 @@ export function createInstance(config: Config) {
    * @param uuid - Id of raster
    * @param body
    */
-  async function getRasterData(
-    uuid: string,
-    body: RasterBody
-  ): Promise<number[][]> {
+  async function getRasterData(uuid: string, body: RasterBody) {
     const url = `${config.url}/rasters/${uuid}/data`;
-    const result = await axios.post(url, body);
-    return result.data.data;
+    const result = await axios.post<RasterDataResult>(url, body);
+    if (result.status === 200) return result.data.data;
   }
 
   /**

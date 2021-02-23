@@ -30,7 +30,8 @@ function createInstance(config) {
     async function getRasterData(uuid, body) {
         const url = `${config.url}/rasters/${uuid}/data`;
         const result = await axios_1.default.post(url, body);
-        return result.data.data;
+        if (result.status === 200)
+            return result.data.data;
     }
     /**
      * Get defined number of raw raster data values for a line wkt geometry

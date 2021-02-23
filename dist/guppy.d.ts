@@ -24,7 +24,16 @@ export interface RasterStats {
 export interface RasterBody {
     srs: string;
     geometry: string;
-    resolution: 'native' | 'auto';
+    resolution: "native" | "auto";
+}
+export interface RasterDataResult {
+    data: number[][] | number[];
+    meta: {
+        type: string;
+    };
+}
+export interface RasterDataError {
+    message: string;
 }
 export interface RasterClassification {
     value: string;
