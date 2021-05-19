@@ -1,7 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
 export interface Config {
   url: string;
+}
+
+export interface Category {
+  name: string;
+  description: string;
+  createdOn: Date;
+  createdBy: string;
+  updatedOn: Date;
+  updatedBy: string;
 }
 
 export interface Raster {
@@ -9,6 +18,8 @@ export interface Raster {
   name: string; // example: ifdm_2015ref_industrie_kgn
   description: string;
   metadataUrl: string; // Who supplied the raster?
+  globalMin: number | null;
+  globalMax: number | null;
   createdOn: Date;
   createdBy: string;
   updatedOn: Date;
@@ -29,7 +40,7 @@ export interface RasterStats {
 export interface RasterBody {
   srs: string; // example: EPSG:4326
   geometry: string; // example: Polygon ((4.508 51.301,4.508 51.401, 4.608 51.401, 4.608 51.301,4.508 51.301))
-  resolution: "native" | "auto";
+  resolution: 'native' | 'auto';
 }
 
 export interface RasterDataResult {
@@ -76,10 +87,7 @@ export function createInstance(config: Config) {
    * @param uuid - Id of raster
    * @param body
    */
-  async function getRasterClassification(
-    uuid: string,
-    body: RasterClassificationBody
-  ): Promise<RasterClassification> {
+  async function getRasterClassification(uuid: string, body: RasterClassificationBody): Promise<RasterClassification> {
     const url = `${config.url}/rasters/${uuid}/classification`;
     const result = await axios.post(url, body);
     return result.data.data;
@@ -101,10 +109,7 @@ export function createInstance(config: Config) {
    * @param uuid - Id of raster
    * @param body
    */
-  async function getRasterLinedata(
-    uuid: string,
-    body: RasterLinedataBody
-  ): Promise<number[]> {
+  async function getRasterLinedata(uuid: string, body: RasterLinedataBody): Promise<number[]> {
     const url = `${config.url}/rasters/${uuid}/linedata`;
     const result = await axios.post(url, { ...body });
     return result.data.data;
@@ -115,10 +120,7 @@ export function createInstance(config: Config) {
    * @param uuid - Id of raster
    * @param body
    */
-  async function getRasterStats(
-    uuid: string,
-    body: RasterBody
-  ): Promise<RasterStats> {
+  async function getRasterStats(uuid: string, body: RasterBody): Promise<RasterStats> {
     const url = `${config.url}/rasters/${uuid}/stats`;
     const result = await axios.post(url, body);
     return result.data.data;
@@ -129,10 +131,7 @@ export function createInstance(config: Config) {
    * @param uuid - Id of raster
    * @param body
    */
-  async function getRasterQuantiles(
-    uuid: string,
-    body: RasterQuantilesBody
-  ): Promise<RasterQuantiles[]> {
+  async function getRasterQuantiles(uuid: string, body: RasterQuantilesBody): Promise<RasterQuantiles[]> {
     const url = `${config.url}/rasters/${uuid}/quantiles`;
     const result = await axios.post(url, body);
     return result.data.data;
@@ -146,8 +145,14 @@ export function createInstance(config: Config) {
   /**
    * Get categories known by Guppy api
    */
-  async function getCategories(): Promise<Raster[]> {
-    const result = await axios.get(`${config.url}/categories`);
+  async function getCategories(options = { offset: 0, limit: 9999 }): Promise<Category[]> {
+    const result = await axios.get(`${config.url}/categories`, {
+      params: {
+        offset: options.offset,
+        limit: options.limit,
+      },
+    });
+
     return result.data.data;
   }
 
@@ -155,24 +160,20 @@ export function createInstance(config: Config) {
    * Get category details
    * @param categoryId
    */
-  async function getCategory(categoryId: string): Promise<Raster> {
+  async function getCategory(categoryId: string): Promise<Category> {
     const result = await axios.get(`${config.url}/categories/${categoryId}`);
     return result.data.data;
   }
 
   /**
    * Get rasters by category
-   * @param categoryId
+   * @param categoryName
    * @param options
    */
-  async function getRastersByCategory(
-    categoryId: string,
-    options = { limit: 9999 }
-  ): Promise<Raster[]> {
-    const result = await axios.get(
-      `${config.url}/categories/${categoryId}/rasters`,
-      { params: { limit: options.limit } }
-    );
+  async function getRastersByCategory(categoryName: string, options = { limit: 9999 }): Promise<Raster[]> {
+    const result = await axios.get(`${config.url}/categories/${categoryName}/rasters`, {
+      params: { limit: options.limit },
+    });
     return result.data.data;
   }
 

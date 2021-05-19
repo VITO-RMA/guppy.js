@@ -70,8 +70,13 @@ function createInstance(config) {
     /**
      * Get categories known by Guppy api
      */
-    async function getCategories() {
-        const result = await axios_1.default.get(`${config.url}/categories`);
+    async function getCategories(options = { offset: 0, limit: 9999 }) {
+        const result = await axios_1.default.get(`${config.url}/categories`, {
+            params: {
+                offset: options.offset,
+                limit: options.limit,
+            },
+        });
         return result.data.data;
     }
     /**
@@ -84,11 +89,13 @@ function createInstance(config) {
     }
     /**
      * Get rasters by category
-     * @param categoryId
+     * @param categoryName
      * @param options
      */
-    async function getRastersByCategory(categoryId, options = { limit: 9999 }) {
-        const result = await axios_1.default.get(`${config.url}/categories/${categoryId}/rasters`, { params: { limit: options.limit } });
+    async function getRastersByCategory(categoryName, options = { limit: 9999 }) {
+        const result = await axios_1.default.get(`${config.url}/categories/${categoryName}/rasters`, {
+            params: { limit: options.limit },
+        });
         return result.data.data;
     }
     /**

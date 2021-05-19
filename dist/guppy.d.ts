@@ -1,11 +1,21 @@
 export interface Config {
     url: string;
 }
+export interface Category {
+    name: string;
+    description: string;
+    createdOn: Date;
+    createdBy: string;
+    updatedOn: Date;
+    updatedBy: string;
+}
 export interface Raster {
     uuid: string;
     name: string;
     description: string;
     metadataUrl: string;
+    globalMin: number | null;
+    globalMax: number | null;
     createdOn: Date;
     createdBy: string;
     updatedOn: Date;
@@ -24,7 +34,7 @@ export interface RasterStats {
 export interface RasterBody {
     srs: string;
     geometry: string;
-    resolution: "native" | "auto";
+    resolution: 'native' | 'auto';
 }
 export interface RasterDataResult {
     data: number[][] | number[];
@@ -61,9 +71,12 @@ export declare function createInstance(config: Config): {
     getRasterLinedata: (uuid: string, body: RasterLinedataBody) => Promise<number[]>;
     getRasterStats: (uuid: string, body: RasterBody) => Promise<RasterStats>;
     getRasters: () => Promise<Raster[]>;
-    getCategories: () => Promise<Raster[]>;
-    getCategory: (categoryId: string) => Promise<Raster>;
-    getRastersByCategory: (categoryId: string, options?: {
+    getCategories: (options?: {
+        offset: number;
+        limit: number;
+    }) => Promise<Category[]>;
+    getCategory: (categoryId: string) => Promise<Category>;
+    getRastersByCategory: (categoryName: string, options?: {
         limit: number;
     }) => Promise<Raster[]>;
     getRaster: (uuid: string) => Promise<Raster>;
