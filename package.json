@@ -27,7 +27,7 @@
   "homepage": "https://github.com/VITO-RMA/guppy.ts#readme",
   "dependencies": {
     "@babel/core": "^7.7.2",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "plugin": "^0.3.3",
     "tsdoc": "^0.0.4",
     "typedoc": "^0.15.2"
